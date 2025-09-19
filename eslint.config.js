@@ -4,15 +4,12 @@ import js from "@eslint/js";
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
-  // arquivos/paths a ignorar
   {
-    ignores: ["node_modules/**", "coverage/**", "dist/**"]
+    ignores: ["node_modules/**", "coverage/**", "dist/**"],
   },
 
-  // regras recomendadas do ESLint
   js.configs.recommended,
 
-  // opções gerais do projeto
   {
     languageOptions: {
       ecmaVersion: "latest",
@@ -24,21 +21,30 @@ export default [
         __dirname: "readonly",
         module: "readonly",
         require: "readonly",
-        // Testes
-        jest: "readonly"
-      }
+      },
     },
     rules: {
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
-      "no-undef": "error"
-    }
+      "no-undef": "error",
+    },
   },
 
   // ajustes específicos para testes
   {
     files: ["tests/**/*.test.js"],
+    languageOptions: {
+      globals: {
+        describe: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        test: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        jest: "readonly",
+      },
+    },
     rules: {
-      "no-console": "off"
-    }
-  }
+      "no-console": "off",
+    },
+  },
 ];
